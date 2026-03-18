@@ -233,7 +233,7 @@
       if(!raw)return;
       const tokens=tokenize(raw);
       if(!tokens.length)return;
-      if(/[^ -]/.test(raw))return;
+      if(raw.split('').some(c => c.charCodeAt(0) > 127))return;
       if(tokens.length>15)return;
       document.getElementById('results').innerHTML='';
       document.getElementById('goBtn').disabled=true;
