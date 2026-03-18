@@ -2,6 +2,7 @@ export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
   const phrase = url.searchParams.get('phrase');
+  const debug = url.searchParams.get('debug') === '1';
 
   if (!phrase) {
     return new Response(JSON.stringify({ error: 'phrase required' }), {
@@ -11,18 +12,6 @@ export async function onRequestGet(context) {
   }
 
   try {
-    // Debug: check if env vars exist
-    if (!env.SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET) {
-      return new Response(JSON.stringify({ 
-        error: 'missing env vars',
-        has_id: !!env.SPOTIFY_CLIENT_ID,
-        has_secret: !!env.SPOTIFY_CLIENT_SECRET
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-      });
-    }
-
     const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -32,14 +21,9 @@ export async function onRequestGet(context) {
       body: 'grant_type=client_credentials'
     });
 
-    const tokenData = await tokenRes.json();
-    const access_token = tokenData.access_token;
-
+    const { access_token } = await tokenRes.json();
     if (!access_token) {
-      return new Response(JSON.stringify({ 
-        error: 'failed to get token',
-        token_response: tokenData
-      }), {
+      return new Response(JSON.stringify({ error: 'no token' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
       });
@@ -48,6 +32,7 @@ export async function onRequestGet(context) {
     const norm = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
     const target = norm(phrase);
     let exactTrack = null;
+    let debugTitles = [];
 
     for (let offset = 0; offset < 150 && !exactTrack; offset += 50) {
       const searchRes = await fetch(
@@ -57,7 +42,18 @@ export async function onRequestGet(context) {
       const data = await searchRes.json();
       const tracks = data.tracks?.items || [];
       if (tracks.length === 0) break;
+
+      if (debug && offset === 0) {
+        debugTitles = tracks.slice(0, 10).map(t => ({ raw: t.name, normed: norm(t.name) }));
+      }
+
       exactTrack = tracks.find(t => norm(t.name) === target) || null;
+    }
+
+    if (debug) {
+      return new Response(JSON.stringify({ target, titles: debugTitles }), {
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+      });
     }
 
     return new Response(JSON.stringify({
@@ -67,7 +63,7 @@ export async function onRequestGet(context) {
     });
 
   } catch (e) {
-    return new Response(JSON.stringify({ error: e.message, stack: e.stack }), {
+    return new Response(JSON.stringify({ error: e.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     });
