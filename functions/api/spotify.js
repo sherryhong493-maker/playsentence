@@ -29,7 +29,7 @@ export async function onRequestGet(context) {
     }
 
     const searchRes = await fetch(
-      `https://api.spotify.com/v1/search?q=${encodeURIComponent(phrase)}&type=track&limit=50`,
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(phrase)}&type=track&limit=20`,
       { headers: { Authorization: 'Bearer ' + access_token } }
     );
 
