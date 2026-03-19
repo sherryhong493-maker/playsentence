@@ -2,7 +2,6 @@ export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
   const phrase = url.searchParams.get('phrase');
-  const debug = url.searchParams.get('debug') === '1';
 
   if (!phrase) {
     return new Response(JSON.stringify({ error: 'phrase required' }), {
@@ -29,36 +28,13 @@ export async function onRequestGet(context) {
       });
     }
 
-    const norm = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
-    const target = norm(phrase);
-    let exactTrack = null;
-    let debugTitles = [];
+    const searchRes = await fetch(
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(phrase)}&type=track&limit=50`,
+      { headers: { Authorization: 'Bearer ' + access_token } }
+    );
 
-    for (let offset = 0; offset < 150 && !exactTrack; offset += 50) {
-      const searchRes = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(phrase)}&type=track&limit=50&offset=${offset}`,
-        { headers: { Authorization: 'Bearer ' + access_token } }
-      );
-      const data = await searchRes.json();
-      const tracks = data.tracks?.items || [];
-      if (tracks.length === 0) break;
-
-      if (debug && offset === 0) {
-        debugTitles = tracks.slice(0, 10).map(t => ({ raw: t.name, normed: norm(t.name) }));
-      }
-
-      exactTrack = tracks.find(t => norm(t.name) === target) || null;
-    }
-
-    if (debug) {
-      return new Response(JSON.stringify({ target, titles: debugTitles }), {
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-      });
-    }
-
-    return new Response(JSON.stringify({
-      tracks: { items: exactTrack ? [exactTrack] : [] }
-    }), {
+    const data = await searchRes.json();
+    return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     });
 
