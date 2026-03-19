@@ -106,7 +106,7 @@
     <button class="go-btn" id="goBtn" onclick="buildSoundtrack()">Play</button>
   </div>
   <div class="meta-row">
-    <div class="word-count" id="wordCount">0 / 15 words</div>
+    <div class="word-count" id="wordCount">0 / 10 words</div>
     <div class="over-msg" id="overMsg"></div>
   </div>
   <div class="expanded-hint" id="expandedHint"></div>
@@ -130,9 +130,9 @@
       const overMsg=document.getElementById('overMsg');
       const hint=document.getElementById('expandedHint');
       const hasNonEnglish = raw.trim().length > 0 && raw.split('').some(c => c.charCodeAt(0) > 127);
-      wc.textContent=count+' / 15 words';
+      wc.textContent=count+' / 10 words';
       if(hasNonEnglish){wc.className='word-count';inp.className='sentence-input over';overMsg.textContent='Only English is supported for now.';document.getElementById('goBtn').disabled=true;}
-      else if(count>15){wc.className='word-count over';inp.className='sentence-input over';overMsg.textContent='max 15 words';document.getElementById('goBtn').disabled=true;}
+      else if(count>15){wc.className='word-count over';inp.className='sentence-input over';overMsg.textContent='max 10 words';document.getElementById('goBtn').disabled=true;}
       else{wc.className='word-count';inp.className='sentence-input';overMsg.textContent='';document.getElementById('goBtn').disabled=false;}
       hint.innerHTML=(!hasNonEnglish&&expanded!==originalClean&&expanded.length>0)?'reading as: <span>'+expanded+'</span>':'';
     });
@@ -233,7 +233,7 @@
       if(!raw)return;
       const tokens=tokenize(raw);
       if(!tokens.length)return;
-      if(raw.split('').some(c => c.charCodeAt(0) > 127))return;
+      if(/[^ -]/.test(raw))return;
       if(tokens.length>15)return;
       document.getElementById('results').innerHTML='';
       document.getElementById('goBtn').disabled=true;
