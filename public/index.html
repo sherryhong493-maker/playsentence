@@ -8,42 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #141414;
-      min-height: 100vh;
-      min-height: 100dvh;
-      color: #e8ffe8;
-      -webkit-text-size-adjust: 100%;
-    }
-    .container {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: #141414; min-height: 100vh; min-height: 100dvh; color: #e8ffe8; -webkit-text-size-adjust: 100%; }
+    .container { max-width: 780px; margin: 0 auto; padding: 2.5rem 1.25rem; }
     .logo { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: 700; color: #1db954; margin-bottom: 2.5rem; letter-spacing: -0.02em; }
     .logo span { color: #e8ffe8; }
     .headline { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 300; line-height: 1.1; color: #e8ffe8; margin-bottom: 0.5rem; }
     .headline em { font-style: normal; color: #1db954; }
     .subline { font-size: 14px; color: #8aba8a; margin-bottom: 2rem; font-weight: 300; }
     .input-wrap { position: relative; max-width: 640px; margin-bottom: 0.5rem; }
-    .sentence-input {
-      width: 100%; background: #1c1c1c; border: 1px solid #1a3a1a; border-radius: 6px;
-      color: #e8ffe8; font-family: 'Space Mono', monospace; font-size: 14px;
-      padding: 14px 110px 14px 16px; outline: none; transition: border-color 0.2s;
-      -webkit-appearance: none;
-    }
-    @media (max-width: 480px) { .sentence-input { font-size: 16px; padding: 14px 100px 14px 14px; } }
+    .sentence-input { width: 100%; background: #1c1c1c; border: 1px solid #1a3a1a; border-radius: 6px; color: #e8ffe8; font-family: 'Space Mono', monospace; font-size: 14px; padding: 14px 80px 14px 16px; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+    @media (max-width: 480px) { .sentence-input { font-size: 16px; } }
     .sentence-input:focus { border-color: #1db954; }
     .sentence-input.over { border-color: #5a2020; }
     .sentence-input::placeholder { color: #4a7a4a; }
-    .go-btn {
-      position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
-      background: #1db954; border: none; border-radius: 4px; color: #000;
-      cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-      padding: 9px 16px; transition: background 0.2s; white-space: nowrap;
-      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-    }
+    .go-btn { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: #1db954; border: none; border-radius: 4px; color: #000; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 9px 16px; transition: background 0.2s; white-space: nowrap; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     .go-btn:hover { background: #1ed760; }
     .go-btn:active { background: #17a349; }
     .go-btn:disabled { background: #1a3a1a; color: #2a5a2a; cursor: not-allowed; }
@@ -65,20 +43,13 @@
     @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
     .track-item-top { display: flex; align-items: center; gap: 12px; }
     .track-phrase { font-family: 'Space Mono', monospace; font-size: 14px; color: #e8ffe8; flex: 1; min-width: 0; }
-    @media (max-width: 480px) { .track-phrase { font-size: 13px; } }
     .track-phrase small { display: block; font-size: 11px; color: #3a6a3a; margin-top: 3px; font-family: 'DM Sans', sans-serif; font-weight: 300; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .track-phrase.stuck-text { color: #7a4a4a; }
     .track-phrase.stuck-text small { color: #5a3a3a; }
     .track-badge { background: #0a1f0a; border: 1px solid #1a3a1a; border-radius: 4px; font-size: 10px; font-family: 'Space Mono', monospace; color: #3a7a3a; padding: 3px 7px; white-space: nowrap; flex-shrink: 0; }
     .track-badge.err { background: #1a0a0a; border-color: #3a1a1a; color: #7a3a3a; }
     @media (max-width: 380px) { .track-badge { display: none; } }
-    .play-btn {
-      background: transparent; border: 1px solid #1a4a1a; border-radius: 50%;
-      cursor: pointer; width: 36px; height: 36px; min-width: 36px;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-      transition: background 0.2s, border-color 0.2s;
-      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-    }
+    .play-btn { background: transparent; border: 1px solid #1a4a1a; border-radius: 50%; cursor: pointer; width: 36px; height: 36px; min-width: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, border-color 0.2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     .play-btn:hover, .play-btn.active { background: #1a2e1a; border-color: #1db954; }
     .play-icon { width: 0; height: 0; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent #1db954; margin-left: 2px; }
     .stop-icon { width: 10px; height: 10px; background: #1db954; flex-shrink: 0; }
@@ -92,164 +63,229 @@
     .combinator-text .missing { color: #7a3a3a; }
     .partial-note { margin-top: 8px; font-size: 11px; color: #5a3a3a; font-family: 'Space Mono', monospace; }
     .error-box { background: #1a0a0a; border: 1px solid #3a1a1a; border-radius: 6px; padding: 16px 18px; color: #7a3a3a; font-size: 14px; margin-top: 1.5rem; }
+    footer { max-width: 640px; margin-top: 4rem; padding-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer span { font-size: 11px; color: #2a5a2a; font-family: 'Space Mono', monospace; }
+    footer a { color: #1db954; text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
   <div class="logo">Play<span>Sentence</span></div>
   <h1 class="headline">Type a sentence.<br><em>Hear it in songs.</em></h1>
   <p class="subline">A new way to discover and share music.</p>
+
   <div class="input-wrap">
-    <input class="sentence-input" id="sentenceInput" type="text"
+    <input class="sentence-input" id="inp" type="text"
       placeholder="example: i do not want to go to work"
       maxlength="200" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    <button class="go-btn" id="goBtn" onclick="buildSoundtrack()">Play</button>
+    <button class="go-btn" id="goBtn" onclick="play()">Play</button>
   </div>
   <div class="meta-row">
-    <div class="word-count" id="wordCount">0 / 10 words</div>
+    <div class="word-count" id="wc">0 / 10 words</div>
     <div class="over-msg" id="overMsg"></div>
   </div>
-  <div class="expanded-hint" id="expandedHint"></div>
-  <div class="status" id="status"></div>
-  <div class="results" id="results"></div>
+  <div class="expanded-hint" id="hint"></div>
+  <div class="status" id="st"></div>
+  <div class="results" id="res"></div>
 
-  <script>
-    const CONTRACTIONS=[["won't","will not"],["can't","cannot"],["don't","do not"],["didn't","did not"],["doesn't","does not"],["isn't","is not"],["aren't","are not"],["wasn't","was not"],["weren't","were not"],["wouldn't","would not"],["shouldn't","should not"],["couldn't","could not"],["haven't","have not"],["hasn't","has not"],["hadn't","had not"],["mustn't","must not"],["needn't","need not"],["i'm","i am"],["you're","you are"],["he's","he is"],["she's","she is"],["it's","it is"],["we're","we are"],["they're","they are"],["that's","that is"],["there's","there is"],["what's","what is"],["who's","who is"],["i've","i have"],["you've","you have"],["we've","we have"],["they've","they have"],["i'd","i would"],["you'd","you would"],["he'd","he would"],["she'd","she would"],["we'd","we would"],["they'd","they would"],["i'll","i will"],["you'll","you will"],["he'll","he will"],["she'll","she will"],["we'll","we will"],["they'll","they will"]];
-    function expandContractions(s){let o=s.toLowerCase();for(const[f,t]of CONTRACTIONS)o=o.split(f).join(t);return o;}
-    function normalize(s){return expandContractions(s).replace(/[^\p{L}\p{N} ]/gu,'').replace(/\s+/g,' ').trim().toLowerCase();}
-    function tokenize(s){return normalize(s).split(' ').filter(Boolean);}
-    function isEnglish(s){return /^[a-z0-9 ]+$/.test(normalize(s));}
-    function setStatus(msg,searching=false){const el=document.getElementById('status');el.textContent=msg;el.className='status'+(searching?' searching':'');}
-    const inp=document.getElementById('sentenceInput');
-    inp.addEventListener('input',()=>{
-      const raw=inp.value;
-      const expanded=normalize(raw);
-      const originalClean=raw.toLowerCase().replace(/[^a-z0-9 ']/g,'').replace(/\s+/g,' ').trim();
-      const count=tokenize(raw).length;
-      const wc=document.getElementById('wordCount');
-      const overMsg=document.getElementById('overMsg');
-      const hint=document.getElementById('expandedHint');
-      const hasNonEnglish = raw.trim().length > 0 && raw.split('').some(c => c.charCodeAt(0) > 127);
-      wc.textContent=count+' / 10 words';
-      if(hasNonEnglish){wc.className='word-count';inp.className='sentence-input over';overMsg.textContent='Only English is supported for now.';document.getElementById('goBtn').disabled=true;}
-      else if(count>15){wc.className='word-count over';inp.className='sentence-input over';overMsg.textContent='max 10 words';document.getElementById('goBtn').disabled=true;}
-      else{wc.className='word-count';inp.className='sentence-input';overMsg.textContent='';document.getElementById('goBtn').disabled=false;}
-      hint.innerHTML=(!hasNonEnglish&&expanded!==originalClean&&expanded.length>0)?'reading as: <span>'+expanded+'</span>':'';
-    });
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter')buildSoundtrack();});
-    const cache={};
-    async function searchPhrase(phrase){
-      if(cache[phrase]!==undefined)return cache[phrase];
-      try{
-        const res=await fetch('/api/spotify?phrase='+encodeURIComponent(phrase));
-        const data=await res.json();
-        const tracks=data.tracks?.items||[];
-        const exact=tracks.find(t=>normalize(t.name)===normalize(phrase));
-        if(exact){cache[phrase]={title:exact.name,artist:exact.artists[0]?.name||'',id:exact.id};return cache[phrase];}
-        cache[phrase]=null;return null;
-      }catch(e){cache[phrase]=null;return null;}
-    }
-    async function dpSolve(tokens){
-      const n=tokens.length;
-      const dp=new Array(n+1).fill(false);
-      const chosen=new Array(n+1).fill(null);
-      dp[0]=true;
-      for(let i=0;i<n;i++){
-        if(!dp[i])continue;
-        for(let len=Math.min(5,n-i);len>=1;len--){
-          const phrase=tokens.slice(i,i+len).join(' ');
-          setStatus('searching... "'+phrase+'"',true);
-          const result=await searchPhrase(phrase);
-          if(result&&!dp[i+len]){dp[i+len]=true;chosen[i+len]={phrase,result,start:i};}
-        }
-      }
-      if(!dp[n])return null;
-      const path=[];let pos=n;
-      while(pos>0){const c=chosen[pos];if(!c)return null;path.unshift(c);pos=c.start;}
-      return path;
-    }
-    async function partialSolve(tokens){
-      const segs=[];let i=0;
-      while(i<tokens.length){
-        let found=false;
-        for(let len=Math.min(5,tokens.length-i);len>=1;len--){
-          const phrase=tokens.slice(i,i+len).join(' ');
-          setStatus('searching... "'+phrase+'"',true);
-          const result=await searchPhrase(phrase);
-          if(result){segs.push({phrase,result,stuck:false});i+=len;found=true;break;}
-        }
-        if(!found){segs.push({phrase:tokens[i],result:null,stuck:true});i++;}
-      }
-      return segs;
-    }
-    function toggleEmbed(id,url){
-      const el=document.getElementById('embed-'+id);
-      const btn=document.getElementById('btn-'+id);
-      if(el.classList.contains('open')){
-        el.classList.remove('open');btn.classList.remove('active');btn.innerHTML='<div class="play-icon"></div>';
-        setTimeout(()=>{el.innerHTML='';},300);
-      } else {
-        document.querySelectorAll('.embed-area.open').forEach(e=>{
-          e.classList.remove('open');
-          const bid=e.id.replace('embed-','');const b=document.getElementById('btn-'+bid);
-          if(b){b.classList.remove('active');b.innerHTML='<div class="play-icon"></div>';}
-          setTimeout(()=>{e.innerHTML='';},300);
-        });
-        el.innerHTML='<iframe src="'+url+'" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
-        el.classList.add('open');btn.classList.add('active');btn.innerHTML='<div class="stop-icon"></div>';
-      }
-    }
-    function makeItem(phrase,result,i,stuck){
-      const id='track-'+i;
-      const wc=phrase.split(' ').length;
-      const embedUrl=result?.id?'https://open.spotify.com/embed/track/'+result.id+'?utm_source=generator&theme=0':'';
-      if(stuck)return '<div class="track-item stuck" style="animation-delay:'+i*80+'ms"><div class="track-item-top"><div class="track-phrase stuck-text">"'+phrase+'"<small>no matching song found</small></div><div class="track-badge err">missing</div></div></div>';
-      return '<div class="track-item" style="animation-delay:'+i*80+'ms"><div class="track-item-top"><div class="track-phrase">'+result.title+'<small>'+result.artist+'</small></div><div class="track-badge">'+(wc===1?'1 word':wc+' words')+'</div>'+(embedUrl?'<button class="play-btn" id="btn-'+id+'" onclick="toggleEmbed(\''+id+'\',\''+embedUrl+'\')" aria-label="Preview"><div class="play-icon"></div></button>':'')+'</div><div class="embed-area" id="embed-'+id+'"></div></div>';
-    }
-    function renderFull(path){
-      const el=document.getElementById('results');
-      const words=path.map(p=>'<span>'+p.phrase+'</span>').join(' ');
-      let html='<div class="sentence-display">'+words+'</div><div class="track-list">';
-      path.forEach((item,i)=>{html+=makeItem(item.phrase,item.result,i,false);});
-      html+='</div>';
-      const parts=path.map(p=>'<span>'+p.result.title+'</span>').join('<span class="sep">/</span>');
-      html+='<div class="combinator"><div class="combinator-label">Combined</div><div class="combinator-text">'+parts+'</div></div>';
-      el.innerHTML=html;
-    }
-    function renderPartial(segs){
-      const el=document.getElementById('results');
-      const stuckWords=segs.filter(s=>s.stuck).map(s=>'"'+s.phrase+'"');
-      let html='<div class="track-list">';
-      segs.forEach((seg,i)=>{html+=makeItem(seg.phrase,seg.result,i,seg.stuck);});
-      html+='</div>';
-      if(segs.some(s=>!s.stuck)){
-        const parts=segs.map(s=>s.stuck?'<span class="missing">['+s.phrase+']</span>':'<span>'+s.result.title+'</span>').join('<span class="sep">/</span>');
-        html+='<div class="combinator"><div class="combinator-label">Combined</div><div class="combinator-text">'+parts+'</div><div class="partial-note">couldn\'t find songs for: '+stuckWords.join(', ')+'</div></div>';
-      }
-      el.innerHTML=html;
-    }
-    async function buildSoundtrack(){
-      const raw=inp.value.trim();
-      if(!raw)return;
-      const tokens=tokenize(raw);
-      if(!tokens.length)return;
-      if(raw.split('').some(c => c.charCodeAt(0) > 127))return;
-      if(tokens.length>15)return;
-      document.getElementById('results').innerHTML='';
-      document.getElementById('goBtn').disabled=true;
-      setStatus('discovering your soundtrack...',true);
-      try{
-        const path=await dpSolve(tokens);
-        document.getElementById('goBtn').disabled=false;
-        if(path){setStatus('soundtrack ready');renderFull(path);}
-        else{const partial=await partialSolve(tokens);document.getElementById('goBtn').disabled=false;setStatus('');renderPartial(partial);}
-      }catch(e){document.getElementById('goBtn').disabled=false;setStatus('');document.getElementById('results').innerHTML='<div class="error-box">something went wrong. try again.</div>';}
-    }
-  </script>
-  <footer style="max-width:640px;margin-top:4rem;padding-bottom:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-    <span style="font-size:11px;color:#2a5a2a;font-family:Space Mono,monospace">Powered by <a href="https://spotify.com" target="_blank" style="color:#1db954;text-decoration:none">Spotify</a></span>
-    <span style="font-size:11px;color:#2a5a2a;font-family:Space Mono,monospace">by sherryhong493</span>
+  <footer>
+    <span>Powered by <a href="https://spotify.com" target="_blank">Spotify</a></span>
+    <span>by sherryhong493</span>
   </footer>
-  </div>
+</div>
+
+<script>
+// ── Contraction expansion ──────────────────────────────────────────────────
+const CONTRACTIONS = [
+  ["won't","will not"],["can't","cannot"],["don't","do not"],["didn't","did not"],
+  ["doesn't","does not"],["isn't","is not"],["aren't","are not"],["wasn't","was not"],
+  ["weren't","were not"],["wouldn't","would not"],["shouldn't","should not"],
+  ["couldn't","could not"],["haven't","have not"],["hasn't","has not"],
+  ["hadn't","had not"],["mustn't","must not"],["needn't","need not"],
+  ["i'm","i am"],["you're","you are"],["he's","he is"],["she's","she is"],
+  ["it's","it is"],["we're","we are"],["they're","they are"],["that's","that is"],
+  ["there's","there is"],["what's","what is"],["who's","who is"],
+  ["i've","i have"],["you've","you have"],["we've","we have"],["they've","they have"],
+  ["i'd","i would"],["you'd","you would"],["he'd","he would"],["she'd","she would"],
+  ["we'd","we would"],["they'd","they would"],
+  ["i'll","i will"],["you'll","you will"],["he'll","he will"],["she'll","she will"],
+  ["we'll","we will"],["they'll","they will"]
+];
+
+function expand(s) {
+  let o = s.toLowerCase();
+  for (const [f,t] of CONTRACTIONS) o = o.split(f).join(t);
+  return o;
+}
+
+function norm(s) {
+  return expand(s).replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+}
+
+function tokenize(s) {
+  return norm(s).split(' ').filter(Boolean);
+}
+
+// ── UI helpers ─────────────────────────────────────────────────────────────
+const inp = document.getElementById('inp');
+
+function setSt(msg, on) {
+  const el = document.getElementById('st');
+  el.textContent = msg;
+  el.className = 'status' + (on ? ' searching' : '');
+}
+
+inp.addEventListener('input', () => {
+  const raw = inp.value;
+  const expanded = norm(raw);
+  const originalClean = raw.toLowerCase().replace(/[^a-z0-9 ']/g,'').replace(/\s+/g,' ').trim();
+  const count = tokenize(raw).length;
+  const hasNonEnglish = raw.trim().length > 0 && raw.split('').some(c => c.charCodeAt(0) > 127);
+
+  const wcEl = document.getElementById('wc');
+  const overMsg = document.getElementById('overMsg');
+  const hintEl = document.getElementById('hint');
+
+  wcEl.textContent = count + ' / 10 words';
+
+  if (hasNonEnglish) {
+    wcEl.className = 'word-count';
+    inp.className = 'sentence-input over';
+    overMsg.textContent = 'Only English is supported for now.';
+    document.getElementById('goBtn').disabled = true;
+  } else if (count > 10) {
+    wcEl.className = 'word-count over';
+    inp.className = 'sentence-input over';
+    overMsg.textContent = 'max 10 words';
+    document.getElementById('goBtn').disabled = true;
+  } else {
+    wcEl.className = 'word-count';
+    inp.className = 'sentence-input';
+    overMsg.textContent = '';
+    document.getElementById('goBtn').disabled = false;
+  }
+
+  hintEl.innerHTML = (!hasNonEnglish && expanded !== originalClean && expanded.length > 0)
+    ? 'reading as: <span>' + expanded + '</span>' : '';
+});
+
+inp.addEventListener('keydown', e => { if (e.key === 'Enter') play(); });
+
+// ── Spotify search ─────────────────────────────────────────────────────────
+const cache = {};
+
+async function searchWord(word) {
+  if (cache[word] !== undefined) return cache[word];
+  try {
+    const res = await fetch('/api/spotify?phrase=' + encodeURIComponent(word));
+    const data = await res.json();
+    const tracks = data.tracks && data.tracks.items ? data.tracks.items : [];
+    const exact = tracks.find(t => norm(t.name) === word);
+    cache[word] = exact ? { title: exact.name, artist: exact.artists[0].name, id: exact.id } : null;
+    return cache[word];
+  } catch(e) {
+    cache[word] = null;
+    return null;
+  }
+}
+
+// ── Main play function ─────────────────────────────────────────────────────
+async function play() {
+  const raw = inp.value.trim();
+  if (!raw) return;
+  const tokens = tokenize(raw);
+  if (!tokens.length) return;
+  if (tokens.length > 10) return;
+  if (raw.split('').some(c => c.charCodeAt(0) > 127)) return;
+
+  document.getElementById('res').innerHTML = '';
+  document.getElementById('goBtn').disabled = true;
+
+  // Search each word one by one
+  const segs = [];
+  for (let i = 0; i < tokens.length; i++) {
+    setSt('searching "' + tokens[i] + '"...', true);
+    const result = await searchWord(tokens[i]);
+    segs.push({ word: tokens[i], result: result, stuck: !result });
+  }
+
+  document.getElementById('goBtn').disabled = false;
+  setSt('');
+
+  // Render results
+  const allFound = segs.every(s => !s.stuck);
+  const someFound = segs.some(s => !s.stuck);
+  const stuckWords = segs.filter(s => s.stuck).map(s => '"' + s.word + '"');
+
+  // Sentence display
+  const words = segs.map(s => '<span>' + s.word + '</span>').join(' ');
+  let html = '<div class="sentence-display">' + words + '</div><div class="track-list">';
+
+  segs.forEach((seg, i) => {
+    const delay = i * 80;
+    if (seg.stuck) {
+      html += '<div class="track-item stuck" style="animation-delay:' + delay + 'ms">'
+            + '<div class="track-item-top">'
+            + '<div class="track-phrase stuck-text">"' + seg.word + '"<small>no matching song found</small></div>'
+            + '<div class="track-badge err">missing</div>'
+            + '</div></div>';
+    } else {
+      const id = 'track-' + i;
+      const embedUrl = 'https://open.spotify.com/embed/track/' + seg.result.id + '?utm_source=generator&theme=0';
+      html += '<div class="track-item" style="animation-delay:' + delay + 'ms">'
+            + '<div class="track-item-top">'
+            + '<div class="track-phrase">' + seg.result.title + '<small>' + seg.result.artist + '</small></div>'
+            + '<div class="track-badge">1 word</div>'
+            + '<button class="play-btn" id="btn-' + id + '" onclick="toggleEmbed(\'' + id + '\',\'' + embedUrl + '\')" aria-label="Preview"><div class="play-icon"></div></button>'
+            + '</div>'
+            + '<div class="embed-area" id="embed-' + id + '"></div>'
+            + '</div>';
+    }
+  });
+
+  html += '</div>';
+
+  // Combined row
+  if (someFound) {
+    const parts = segs.map(s =>
+      s.stuck
+        ? '<span class="missing">[' + s.word + ']</span>'
+        : '<span>' + s.result.title + '</span>'
+    ).join('<span class="sep">/</span>');
+    html += '<div class="combinator"><div class="combinator-label">Combined</div>'
+          + '<div class="combinator-text">' + parts + '</div>';
+    if (!allFound) {
+      html += '<div class="partial-note">couldn\'t find songs for: ' + stuckWords.join(', ') + '</div>';
+    }
+    html += '</div>';
+  }
+
+  document.getElementById('res').innerHTML = html;
+}
+
+// ── Embed player ───────────────────────────────────────────────────────────
+function toggleEmbed(id, url) {
+  const el = document.getElementById('embed-' + id);
+  const btn = document.getElementById('btn-' + id);
+  if (el.classList.contains('open')) {
+    el.classList.remove('open');
+    btn.classList.remove('active');
+    btn.innerHTML = '<div class="play-icon"></div>';
+    setTimeout(() => { el.innerHTML = ''; }, 300);
+  } else {
+    document.querySelectorAll('.embed-area.open').forEach(e => {
+      e.classList.remove('open');
+      const bid = e.id.replace('embed-','');
+      const b = document.getElementById('btn-' + bid);
+      if (b) { b.classList.remove('active'); b.innerHTML = '<div class="play-icon"></div>'; }
+      setTimeout(() => { e.innerHTML = ''; }, 300);
+    });
+    el.innerHTML = '<iframe src="' + url + '" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
+    el.classList.add('open');
+    btn.classList.add('active');
+    btn.innerHTML = '<div class="stop-icon"></div>';
+  }
+}
+</script>
 </body>
 </html>
